@@ -6,8 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { ImageIcon, Send, Video, Link2, X, Edit } from 'lucide-react';
-import ImageEditor from './ImageEditor';
+import { ImageIcon, Send, Video, Link2, X } from 'lucide-react';
 import avatarPlaceholder from '@/assets/avatar-placeholder.jpg';
 
 interface CreatePostProps {
@@ -20,7 +19,6 @@ const CreatePost = ({ onPostCreated }: CreatePostProps) => {
   const [titulo, setTitulo] = useState('');
   const [content, setContent] = useState('');
   const [attachments, setAttachments] = useState<Array<{ type: 'image' | 'video' | 'link', url: string, name?: string }>>([]);
-  const [editingImage, setEditingImage] = useState<File | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,25 +36,11 @@ const CreatePost = ({ onPostCreated }: CreatePostProps) => {
     const files = event.target.files;
     if (files) {
       Array.from(files).forEach(file => {
-        if (file.type.startsWith('image/')) {
-          setEditingImage(file);
-        } else {
-          const url = URL.createObjectURL(file);
-          const type = file.type.startsWith('video/') ? 'video' : 'image';
-          setAttachments(prev => [...prev, { type, url, name: file.name }]);
-        }
+        const url = URL.createObjectURL(file);
+        const type = file.type.startsWith('image/') ? 'image' : 'video';
+        setAttachments(prev => [...prev, { type, url, name: file.name }]);
       });
     }
-  };
-
-  const handleImageEdited = (imageBlob: Blob) => {
-    const url = URL.createObjectURL(imageBlob);
-    setAttachments(prev => [...prev, { type: 'image', url, name: 'edited-image.png' }]);
-    setEditingImage(null);
-  };
-
-  const handleCloseEditor = () => {
-    setEditingImage(null);
   };
 
   const handleAddLink = () => {
@@ -209,14 +193,6 @@ const CreatePost = ({ onPostCreated }: CreatePostProps) => {
           </div>
         </form>
       </CardContent>
-      
-      {editingImage && (
-        <ImageEditor
-          imageFile={editingImage}
-          onSave={handleImageEdited}
-          onClose={handleCloseEditor}
-        />
-      )}
     </Card>
   );
 };

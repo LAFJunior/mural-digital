@@ -25,28 +25,14 @@ const Index = () => {
       comments: 0,
       timestamp: 'agora',
       tags: [],
-      category: newPost.tipo,
-      isPinned: false
+      category: newPost.tipo
     };
     setPosts(prev => [post, ...prev]);
   };
 
-  const handlePinPost = (postId: string) => {
-    setPosts(prev => prev.map(post => 
-      post.id === postId 
-        ? { ...post, isPinned: !(post as any).isPinned }
-        : post
-    ));
-  };
-
   const filteredPosts = useMemo(() => {
-    let filtered = activeFilter === 'todos' ? posts : posts.filter(post => post.category === activeFilter);
-    // Sort pinned posts to the top
-    return filtered.sort((a, b) => {
-      if ((a as any).isPinned && !(b as any).isPinned) return -1;
-      if (!(a as any).isPinned && (b as any).isPinned) return 1;
-      return 0;
-    });
+    if (activeFilter === 'todos') return posts;
+    return posts.filter(post => post.category === activeFilter);
   }, [posts, activeFilter]);
 
   const postCounts = useMemo(() => {
@@ -79,10 +65,10 @@ const Index = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        <div className="flex gap-8 justify-center">
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex gap-8">
           {/* Main Feed */}
-          <main className="w-full max-w-2xl space-y-6">
+          <main className="flex-1 max-w-2xl space-y-6">
             <CreatePost onPostCreated={addPost} />
             
             <FilterTabs 
@@ -98,7 +84,7 @@ const Index = () => {
                   className="slide-up"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <PostCard post={post} onPin={handlePinPost} />
+                  <PostCard post={post} />
                 </div>
               ))}
             </div>

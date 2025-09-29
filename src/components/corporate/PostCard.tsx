@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Heart, MessageCircle, MoreHorizontal, Pin } from 'lucide-react';
+import { Heart, MessageCircle, MoreHorizontal } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface PostCardProps {
@@ -22,12 +22,10 @@ interface PostCardProps {
     timestamp: string;
     tags?: string[];
     category?: string;
-    isPinned?: boolean;
   };
-  onPin?: (id: string) => void;
 }
 
-const PostCard = ({ post, onPin }: PostCardProps) => {
+const PostCard = ({ post }: PostCardProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(post.likes);
 
@@ -37,10 +35,7 @@ const PostCard = ({ post, onPin }: PostCardProps) => {
   };
 
   return (
-    <Card className={cn(
-      "post-card fade-in hover:shadow-[var(--shadow-hover)] transition-all duration-300",
-      post.isPinned && "ring-2 ring-primary/50 bg-primary/5"
-    )}>
+    <Card className="post-card fade-in hover:shadow-[var(--shadow-hover)] transition-all duration-300">
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">
@@ -59,21 +54,7 @@ const PostCard = ({ post, onPin }: PostCardProps) => {
             </div>
           </div>
           <div className="flex items-center space-x-2">
-            {post.isPinned && (
-              <Pin className="h-4 w-4 text-primary fill-current" />
-            )}
             <span className="text-xs text-muted-foreground">{post.timestamp}</span>
-            {onPin && (
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className="h-8 w-8"
-                onClick={() => onPin(post.id)}
-                title={post.isPinned ? "Desafixar post" : "Fixar post"}
-              >
-                <Pin className={cn("h-4 w-4", post.isPinned && "fill-current text-primary")} />
-              </Button>
-            )}
             <Button variant="ghost" size="icon" className="h-8 w-8">
               <MoreHorizontal className="h-4 w-4" />
             </Button>
