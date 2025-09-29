@@ -12,7 +12,8 @@ export const mockPosts = [
     comments: 12,
     timestamp: '2h',
     tags: ['InovaçãoTech', 'Sucesso', 'Equipe'],
-    category: 'comunicacao'
+    category: 'comunicacao',
+    isPinned: false
   },
   {
     id: '2',
@@ -28,7 +29,8 @@ export const mockPosts = [
     comments: 24,
     timestamp: '4h',
     tags: ['BemEstar', 'TeamBuilding', 'SaúdeMental'],
-    category: 'evento'
+    category: 'evento',
+    isPinned: true
   },
   {
     id: '3',
@@ -43,7 +45,8 @@ export const mockPosts = [
     comments: 18,
     timestamp: '6h',
     tags: ['MetaAlcançada', 'Vendas', 'Equipe'],
-    category: 'celebracao'
+    category: 'celebracao',
+    isPinned: false
   },
   {
     id: '4',
@@ -58,7 +61,8 @@ export const mockPosts = [
     comments: 9,
     timestamp: '1d',
     tags: ['Tecnologia', 'Automação', 'DevOps'],
-    category: 'comunicacao'
+    category: 'comunicacao',
+    isPinned: false
   },
   {
     id: '5',
@@ -74,6 +78,7 @@ export const mockPosts = [
     comments: 31,
     timestamp: '1d',
     tags: ['Sustentabilidade', 'NovaFilial', 'MeioAmbiente'],
-    category: 'campanha'
+    category: 'campanha',
+    isPinned: false
   }
 ];
