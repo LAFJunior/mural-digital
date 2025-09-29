@@ -2,10 +2,8 @@ import { Building2, Search, Bell, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-
 const Header = () => {
-  return (
-    <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
+  return <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo e Brand */}
         <div className="flex items-center space-x-3">
@@ -13,8 +11,8 @@ const Header = () => {
             <Building2 className="h-6 w-6 text-primary-foreground" />
           </div>
           <div>
-            <h1 className="text-xl font-bold gradient-text">Mural Digital</h1>
-            <p className="text-xs text-muted-foreground">Rede Corporativa</p>
+            <h1 className="text-xl font-bold gradient-text">Mural Digital - Oscar</h1>
+            <p className="text-xs text-muted-foreground">📢 Comunicação Interna Corporativa </p>
           </div>
         </div>
 
@@ -22,10 +20,7 @@ const Header = () => {
         <div className="flex-1 max-w-md mx-8">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input 
-              placeholder="Pesquisar posts, pessoas..." 
-              className="pl-10 bg-muted/50 border-0 focus:bg-card transition-colors"
-            />
+            <Input placeholder="Pesquisar posts, pessoas..." className="pl-10 bg-muted/50 border-0 focus:bg-card transition-colors" />
           </div>
         </div>
 
@@ -46,8 +41,6 @@ const Header = () => {
           </Avatar>
         </div>
       </div>
-    </header>
-  );
+    </header>;
 };
-
 export default Header;
