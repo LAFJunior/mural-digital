@@ -2,18 +2,27 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { ImageIcon, Smile, Hash, Send, Video, Link2, X } from 'lucide-react';
+import { ImageIcon, Send, Video, Link2, X } from 'lucide-react';
 import avatarPlaceholder from '@/assets/avatar-placeholder.jpg';
 
 const CreatePost = () => {
+  const [tipo, setTipo] = useState('');
+  const [autor, setAutor] = useState('');
+  const [titulo, setTitulo] = useState('');
   const [content, setContent] = useState('');
   const [attachments, setAttachments] = useState<Array<{ type: 'image' | 'video' | 'link', url: string, name?: string }>>([]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (content.trim()) {
-      console.log('Novo post:', { content, attachments });
+    if (content.trim() && tipo && autor && titulo) {
+      console.log('Novo post:', { tipo, autor, titulo, content, attachments });
+      setTipo('');
+      setAutor('');
+      setTitulo('');
       setContent('');
       setAttachments([]);
       // Aqui seria feita a integração com o backend
@@ -45,25 +54,55 @@ const CreatePost = () => {
   return (
     <Card className="post-card mb-6">
       <CardHeader className="pb-4">
-        <CardTitle className="text-lg">Compartilhe uma atualização</CardTitle>
+        <CardTitle className="text-lg">Nova Publicação</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="flex space-x-3">
-            <Avatar className="h-12 w-12 avatar-ring">
-              <AvatarImage src={avatarPlaceholder} alt="Você" />
-              <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
-                VC
-              </AvatarFallback>
-            </Avatar>
-            <div className="flex-1">
-              <Textarea
-                placeholder="O que está acontecendo na empresa hoje?"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                className="min-h-[100px] resize-none border-0 bg-muted/30 focus:bg-card transition-colors"
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="tipo">Tipo</Label>
+              <Select value={tipo} onValueChange={setTipo}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione o tipo" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="celebracao">Celebração</SelectItem>
+                  <SelectItem value="comunicacao">Comunicação</SelectItem>
+                  <SelectItem value="evento">Evento</SelectItem>
+                  <SelectItem value="campanha">Campanha</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="autor">Autor</Label>
+              <Input
+                id="autor"
+                placeholder="Nome do autor"
+                value={autor}
+                onChange={(e) => setAutor(e.target.value)}
               />
             </div>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="titulo">Título</Label>
+            <Input
+              id="titulo"
+              placeholder="Título da publicação"
+              value={titulo}
+              onChange={(e) => setTitulo(e.target.value)}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="conteudo">Conteúdo</Label>
+            <Textarea
+              id="conteudo"
+              placeholder="Escreva o conteúdo da publicação..."
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className="min-h-[120px] resize-none"
+            />
           </div>
 
           {/* Attachments Preview */}
@@ -138,16 +177,12 @@ const CreatePost = () => {
                 <Link2 className="h-4 w-4 mr-2" />
                 Link
               </Button>
-              <Button type="button" variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
-                <Hash className="h-4 w-4 mr-2" />
-                Tag
-              </Button>
             </div>
 
             <Button 
               type="submit" 
               className="btn-primary"
-              disabled={!content.trim()}
+              disabled={!content.trim() || !tipo || !autor || !titulo}
             >
               <Send className="h-4 w-4 mr-2" />
               Publicar
