@@ -36,9 +36,13 @@ const CreatePost = ({ onPostCreated }: CreatePostProps) => {
     const files = event.target.files;
     if (files) {
       Array.from(files).forEach(file => {
-        const url = URL.createObjectURL(file);
-        const type = file.type.startsWith('image/') ? 'image' : 'video';
-        setAttachments(prev => [...prev, { type, url, name: file.name }]);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const url = e.target?.result as string;
+          const type = file.type.startsWith('image/') ? 'image' : 'video';
+          setAttachments(prev => [...prev, { type, url, name: file.name }]);
+        };
+        reader.readAsDataURL(file);
       });
     }
   };

@@ -21,6 +21,7 @@ const Index = () => {
         avatar: '/src/assets/avatar-placeholder.jpg'
       },
       content: `${newPost.titulo}\n\n${newPost.content}`,
+      attachments: newPost.attachments || [],
       likes: 0,
       comments: 0,
       timestamp: 'agora',
@@ -51,24 +52,24 @@ const Index = () => {
       <Header />
       
       {/* Hero Banner */}
-      <div className="relative h-64 overflow-hidden">
+      <div className="relative h-48 md:h-64 overflow-hidden">
         <img 
           src={heroBanner} 
           alt="Corporate Banner" 
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary-hover/90 flex items-center justify-center">
-          <div className="text-center text-primary-foreground fade-in">
-            <h1 className="text-4xl font-bold mb-2">Mural Digital Corporativo</h1>
-            <p className="text-xl opacity-90">Conectando nossa equipe, compartilhando sucessos</p>
+          <div className="text-center text-primary-foreground fade-in px-4">
+            <h1 className="text-2xl md:text-4xl font-bold mb-2">Mural Digital Corporativo</h1>
+            <p className="text-lg md:text-xl opacity-90">Conectando nossa equipe, compartilhando sucessos</p>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex gap-8">
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="flex flex-col lg:flex-row gap-8 justify-center">
           {/* Main Feed */}
-          <main className="flex-1 max-w-2xl space-y-6">
+          <main className="flex-1 max-w-2xl space-y-6 mx-auto lg:mx-0">
             <CreatePost onPostCreated={addPost} />
             
             <FilterTabs 
@@ -90,8 +91,10 @@ const Index = () => {
             </div>
           </main>
 
-          {/* Sidebar */}
-          <Sidebar />
+          {/* Sidebar - Hidden on mobile */}
+          <div className="hidden lg:block">
+            <Sidebar />
+          </div>
         </div>
       </div>
     </div>
