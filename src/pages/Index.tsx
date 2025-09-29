@@ -1,13 +1,31 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Header from '@/components/corporate/Header';
 import Sidebar from '@/components/corporate/Sidebar';
 import PostCard from '@/components/corporate/PostCard';
 import CreatePost from '@/components/corporate/CreatePost';
+import FilterTabs from '@/components/corporate/FilterTabs';
 import { mockPosts } from '@/data/mockPosts';
 import heroBanner from '@/assets/hero-banner.jpg';
 
 const Index = () => {
   const [posts] = useState(mockPosts);
+  const [activeFilter, setActiveFilter] = useState('todos');
+
+  const filteredPosts = useMemo(() => {
+    if (activeFilter === 'todos') return posts;
+    return posts.filter(post => post.category === activeFilter);
+  }, [posts, activeFilter]);
+
+  const postCounts = useMemo(() => {
+    const counts = {
+      todos: posts.length,
+      comunicacao: posts.filter(p => p.category === 'comunicacao').length,
+      celebracao: posts.filter(p => p.category === 'celebracao').length,
+      evento: posts.filter(p => p.category === 'evento').length,
+      campanha: posts.filter(p => p.category === 'campanha').length,
+    };
+    return counts;
+  }, [posts]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-background">
@@ -34,8 +52,14 @@ const Index = () => {
           <main className="flex-1 max-w-2xl space-y-6">
             <CreatePost />
             
+            <FilterTabs 
+              activeFilter={activeFilter}
+              onFilterChange={setActiveFilter}
+              postCounts={postCounts}
+            />
+            
             <div className="space-y-6">
-              {posts.map((post, index) => (
+              {filteredPosts.map((post, index) => (
                 <div 
                   key={post.id} 
                   className="slide-up"

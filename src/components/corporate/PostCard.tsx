@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Heart, MessageCircle, Share2, MoreHorizontal } from 'lucide-react';
+import { Heart, MessageCircle, MoreHorizontal } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface PostCardProps {
@@ -21,6 +21,7 @@ interface PostCardProps {
     comments: number;
     timestamp: string;
     tags?: string[];
+    category?: string;
   };
 }
 
@@ -105,13 +106,13 @@ const PostCard = ({ post }: PostCardProps) => {
 
             <Button variant="ghost" size="sm" className="flex items-center space-x-2 hover:bg-blue-50 hover:text-blue-600">
               <MessageCircle className="h-4 w-4" />
-              <span className="text-sm font-medium">{post.comments}</span>
+              <span className="text-sm font-medium">{post.comments} respostas</span>
             </Button>
           </div>
 
-          <Button variant="ghost" size="sm" className="flex items-center space-x-2 hover:bg-green-50 hover:text-green-600">
-            <Share2 className="h-4 w-4" />
-            <span className="text-sm">Compartilhar</span>
+          <Button variant="ghost" size="sm" className="flex items-center space-x-2 hover:bg-blue-50 hover:text-blue-600">
+            <MessageCircle className="h-4 w-4" />
+            <span className="text-sm">Comentar</span>
           </Button>
         </div>
       </CardContent>

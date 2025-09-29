@@ -11,7 +11,8 @@ export const mockPosts = [
     likes: 45,
     comments: 12,
     timestamp: '2h',
-    tags: ['InovaçãoTech', 'Sucesso', 'Equipe']
+    tags: ['InovaçãoTech', 'Sucesso', 'Equipe'],
+    category: 'comunicacao'
   },
   {
     id: '2',
@@ -26,7 +27,8 @@ export const mockPosts = [
     likes: 78,
     comments: 24,
     timestamp: '4h',
-    tags: ['BemEstar', 'TeamBuilding', 'SaúdeMental']
+    tags: ['BemEstar', 'TeamBuilding', 'SaúdeMental'],
+    category: 'evento'
   },
   {
     id: '3',
@@ -40,7 +42,8 @@ export const mockPosts = [
     likes: 89,
     comments: 18,
     timestamp: '6h',
-    tags: ['MetaAlcançada', 'Vendas', 'Equipe']
+    tags: ['MetaAlcançada', 'Vendas', 'Equipe'],
+    category: 'celebracao'
   },
   {
     id: '4',
@@ -54,7 +57,8 @@ export const mockPosts = [
     likes: 56,
     comments: 9,
     timestamp: '1d',
-    tags: ['Tecnologia', 'Automação', 'DevOps']
+    tags: ['Tecnologia', 'Automação', 'DevOps'],
+    category: 'comunicacao'
   },
   {
     id: '5',
@@ -69,6 +73,7 @@ export const mockPosts = [
     likes: 124,
     comments: 31,
     timestamp: '1d',
-    tags: ['Sustentabilidade', 'NovaFilial', 'MeioAmbiente']
+    tags: ['Sustentabilidade', 'NovaFilial', 'MeioAmbiente'],
+    category: 'campanha'
   }
 ];
